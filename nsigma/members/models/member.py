@@ -10,9 +10,12 @@ class Member(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL,)
     phone_number = models.CharField(max_length=MAX_PHONE_NUMBER_LEN,)
-    postal_address = models.CharField(max_length=MAX_POSTAL_ADDRESS_LEN,)
+    street = models.CharField(max_length=MAX_POSTAL_ADDRESS_LEN,)
     postcode = models.IntegerField()
     city = models.CharField(max_length=MAX_CITY_LEN,)
+
+    def __str__(self):
+        return '{0} {1} ({2})'.format(self.first_name, self.last_name, self.username)
 
     @property
     def username(self):
@@ -29,3 +32,7 @@ class Member(models.Model):
     @property
     def email(self):
         return self.user.email
+
+    @property
+    def postal_address(self):
+        return '{0}\n{1} {2}'.format(self.street, self.postcode, self.city)

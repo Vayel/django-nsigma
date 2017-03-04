@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'members.apps.MembersConfig',
     'daterange_filter',
+    'smart_selects',
+    'inline_actions',
 ]
 
 MIDDLEWARE = [

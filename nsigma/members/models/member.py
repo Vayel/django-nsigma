@@ -36,3 +36,7 @@ class Member(models.Model):
     @property
     def postal_address(self):
         return '{0}\n{1} {2}'.format(self.street, self.postcode, self.city)
+
+    @property
+    def last_registration(self):
+        return self.registrations.last()

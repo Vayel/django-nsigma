@@ -1,0 +1,4 @@
+django
+django-daterange-filter
+django-inline-actions
+-e git://github.com/digi604/django-smart-selects#egg=django-smart-selects

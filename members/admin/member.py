@@ -6,6 +6,19 @@ from . import tools
 from .. import models
 
 
+class RegistrationInline(admin.TabularInline):
+    model = models.Registration
+    extra = 0
+    ordering = ['-date']
+
+
+class DocumentInline(admin.TabularInline):
+    model = models.RegistrationDocument
+    extra = 0
+    ordering = ['-created_date', 'name',]
+    readonly_fields = ['created_date', 'last_update_date',]
+
+
 class MemberAdmin(InlineActionsModelAdminMixin, admin.ModelAdmin):
     list_display = ('username', 'last_name', 'first_name', 'email',
                     'last_registration_date',)
@@ -13,6 +26,7 @@ class MemberAdmin(InlineActionsModelAdminMixin, admin.ModelAdmin):
                      'user__email',)
     ordering = ('user__last_name', 'user__first_name',)
     inline_actions = ['register', 'add_document',]
+    inlines = [RegistrationInline, DocumentInline,]
 
     def has_delete_permission(self, request, obj=None):
         return False

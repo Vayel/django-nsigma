@@ -11,3 +11,6 @@ from .bank_document import BankDocument
 
 from . import registration_document
 from .registration_document import RegistrationDocument
+
+from . import department
+from .department import Department

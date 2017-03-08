@@ -54,15 +54,21 @@ class BankDocumentInline(document.Inline):
     model = models.BankDocument
 
 
+class DepartmentMembershipInline(admin.TabularInline):
+    model = models.department.DepartmentMembership
+    extra = 0
+
+
 class MemberAdmin(InlineActionsModelAdminMixin, admin.ModelAdmin):
     list_display = ('username', 'last_name', 'first_name', 'email',
                     'last_registration_date',)
-    list_filter = (WasRegisteredListFilter,)
+    list_filter = (WasRegisteredListFilter, 'departments',)
     search_fields = ('user__username', 'user__first_name', 'user__last_name',
                      'user__email',)
     ordering = ('user__last_name', 'user__first_name',)
     inline_actions = ['register', 'add_registration_document', 'add_bank_document',]
-    inlines = [RegistrationDocumentInline, RegistrationInline, BankDocumentInline,]
+    inlines = [RegistrationDocumentInline, RegistrationInline, BankDocumentInline,
+               DepartmentMembershipInline,]
 
     def username(self, obj):
         return obj.user.username

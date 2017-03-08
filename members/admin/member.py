@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from inline_actions.admin import InlineActionsModelAdminMixin
 
 from . import tools as admin_tools
+from . import document
 from .. import models
 from .. import tools
 
@@ -45,11 +46,12 @@ class RegistrationInline(admin.TabularInline):
     ordering = ['-date']
 
 
-class DocumentInline(admin.TabularInline):
+class RegistrationDocumentInline(document.Inline):
     model = models.RegistrationDocument
-    extra = 0
-    ordering = ['-created_date', 'name',]
-    readonly_fields = ['created_date', 'last_update_date',]
+
+
+class BankDocumentInline(document.Inline):
+    model = models.BankDocument
 
 
 class MemberAdmin(InlineActionsModelAdminMixin, admin.ModelAdmin):
@@ -59,8 +61,8 @@ class MemberAdmin(InlineActionsModelAdminMixin, admin.ModelAdmin):
     search_fields = ('user__username', 'user__first_name', 'user__last_name',
                      'user__email',)
     ordering = ('user__last_name', 'user__first_name',)
-    inline_actions = ['register', 'add_document',]
-    inlines = [RegistrationInline, DocumentInline,]
+    inline_actions = ['register', 'add_registration_document', 'add_bank_document',]
+    inlines = [RegistrationDocumentInline, RegistrationInline, BankDocumentInline,]
 
     def username(self, obj):
         return obj.user.username
@@ -91,16 +93,23 @@ class MemberAdmin(InlineActionsModelAdminMixin, admin.ModelAdmin):
         params = {
             'member': obj.pk,
         }
-        if obj.last_registration.foreigner:
+        if obj.last_registration and obj.last_registration.foreigner:
             params['foreigner'] = 'true'
 
         return admin_tools.redirect_add_action(obj, models.Registration, params)
 
-    def add_document(self, request, obj, parent_obj=None):
+    def add_registration_document(self, request, obj, parent_obj=None):
         params = {
             'member': obj.pk,
         }
         return admin_tools.redirect_add_action(obj, models.RegistrationDocument, params)
+
+    def add_bank_document(self, request, obj, parent_obj=None):
+        params = {
+            'member': obj.pk,
+        }
+        return admin_tools.redirect_add_action(obj, models.BankDocument, params)
+
 
 
 admin.site.register(models.Member, MemberAdmin)

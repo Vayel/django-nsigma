@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'members.apps.MembersConfig',
+    'clients.apps.ClientsConfig',
     'daterange_filter',
     'smart_selects',
     'inline_actions',

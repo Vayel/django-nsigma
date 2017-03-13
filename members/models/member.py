@@ -10,16 +10,15 @@ class Manager(models.Manager):
 
 
 class Member(models.Model):
-    MAX_PHONE_NUMBER_LEN = 20 
-    MAX_POSTAL_ADDRESS_LEN = 100 
-    MAX_CITY_LEN = 50 
-    MAX_STUDENT_LOGIN_LEN = 10
+    PHONE_NUMBER_MAX_LEN = 20 
+    STREET_MAX_LEN = 100 
+    CITY_MAX_LEN = 50 
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL,)
-    phone_number = models.CharField(max_length=MAX_PHONE_NUMBER_LEN,)
-    street = models.CharField(max_length=MAX_POSTAL_ADDRESS_LEN,)
+    phone_number = models.CharField(max_length=PHONE_NUMBER_MAX_LEN,)
+    street = models.CharField(max_length=STREET_MAX_LEN,)
     postcode = models.IntegerField()
-    city = models.CharField(max_length=MAX_CITY_LEN,)
+    city = models.CharField(max_length=CITY_MAX_LEN,)
 
     objects = Manager()
 

@@ -1,6 +1,6 @@
-# django-nsigma-members
+# django-nsigma
 
-Une application Django pour gérer les inscriptions à Nsigma.
+Une application Django pour gérer Nsigma en interne.
 
 ## Installation
 
@@ -9,12 +9,12 @@ Une application Django pour gérer les inscriptions à Nsigma.
 à la [checklist](https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/).
 
 ```
-git clone https://github.com/Vayel/django-nsigma-members
-cd django-nsigma-members
+git clone https://github.com/Vayel/django-nsigma
+cd django-nsigma
 # Facultatif (mais conseillé) : travailler dans un environnement virtuel Python
 # Ex : http://sametmax.com/mieux-que-python-virtualenvwrapper-pew/
 pip install -r requirements.txt
-./manage.py makemigrations members
+./manage.py makemigrations members clients
 ./manage.py migrate
 ./manage.py createsuperuser
 ./manage.py runserver

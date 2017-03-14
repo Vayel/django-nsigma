@@ -20,6 +20,7 @@ class Client(models.Model):
         'Company',
         on_delete=models.CASCADE,
     )
+    email = models.EmailField()
     position = models.CharField(
         max_length=POSITION_MAX_LEN,
         default='', blank=True,

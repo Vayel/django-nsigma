@@ -127,7 +127,21 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-# Custom
+# Members
 
 REGISTRATION_FIRST_MONTH = 9
 REGISTRATION_FIRST_DAY = 1
+
+
+# Clients and companies
+
+COMPANY_ORIGIN_CHOICES = (
+    ('linkedin', 'LinkedIn'),
+    ('facebook', 'Facebook'),
+)
+COMPANY_SECTOR_CHOICES = (
+    ('teaching', 'Teaching'),
+)
+COMPANY_TYPE_CHOICES = (
+    ('startup', 'Startup'),
+)

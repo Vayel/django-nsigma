@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.html import format_html
+from django.conf import settings
 
 
 class Company(models.Model):
@@ -9,33 +10,21 @@ class Company(models.Model):
     SECTOR_MAX_LEN = 100
     TYPE_MAX_LEN = 100
 
-    # TODO: to be completed
-    ORIGIN_CHOICES = (
-        ('linkedin', _('LinkedIn')),
-        ('facebook', _('Facebook')),
-    )
-    SECTOR_CHOICES = (
-        ('teaching', _('Teaching')),
-    )
-    TYPE_CHOICES = (
-        ('startup', _('Startup')),
-    )
-
     name = models.CharField(max_length=NAME_MAX_LEN, unique=True)
     slug = models.SlugField(unique=True)
     origin = models.CharField(
         max_length=ORIGIN_MAX_LEN,
-        choices=ORIGIN_CHOICES,
+        choices=settings.COMPANY_ORIGIN_CHOICES,
         blank=True,
     )
     sector = models.CharField(
         max_length=SECTOR_MAX_LEN,
-        choices=SECTOR_CHOICES,
+        choices=settings.COMPANY_SECTOR_CHOICES,
         blank=True,
     )
     type = models.CharField(
         max_length=TYPE_MAX_LEN,
-        choices=TYPE_CHOICES,
+        choices=settings.COMPANY_TYPE_CHOICES,
         blank=True,
     )
     site = models.URLField(blank=True, null=True)

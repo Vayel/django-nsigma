@@ -3,3 +3,4 @@ from . import department
 from . import registration_document
 from . import member
 from . import registration
+from . import user

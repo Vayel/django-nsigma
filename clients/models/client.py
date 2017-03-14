@@ -2,6 +2,20 @@ from django.db import models
 from django.conf import settings
 
 
+class Manager(models.Manager):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.annotate(
+            alumni=models.Case(
+                models.When(user__member__isnull=True, then=False),
+                models.When(user__member__isnull=False, then=True),
+                default=False,
+                output_field=models.BooleanField(),
+            )
+        )
+        return qs
+
+
 class Client(models.Model):
     """Represent a client in a company. If a client works with us through several
     companies, one instance is created for each.
@@ -36,6 +50,8 @@ class Client(models.Model):
         default='',
         blank=True,
     )
+
+    objects = Manager()
 
     def __str__(self):
         return '{0} {1} ({2})'.format(

@@ -2,8 +2,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.html import format_html
 
-from autoslug import AutoSlugField
-
 
 class Company(models.Model):
     NAME_MAX_LEN = 100
@@ -24,7 +22,7 @@ class Company(models.Model):
     )
 
     name = models.CharField(max_length=NAME_MAX_LEN, unique=True)
-    slug = AutoSlugField(populate_from='name', unique=True)
+    slug = models.SlugField(unique=True)
     origin = models.CharField(
         max_length=ORIGIN_MAX_LEN,
         choices=ORIGIN_CHOICES,

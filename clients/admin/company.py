@@ -13,6 +13,7 @@ class CompanyAdmin(admin.ModelAdmin):
     list_display = ('name', 'sector', 'type', 'site_link', 'origin',)
     list_filter = ('sector', 'type', 'origin',)
     search_fields = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
     inlines = (ClientInline,)
 
 admin.site.register(models.Company, CompanyAdmin)
